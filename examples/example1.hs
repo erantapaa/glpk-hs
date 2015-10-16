@@ -1,5 +1,5 @@
 
-import Data.LinearProgram.LPMonad
+import Control.Monad.LPMonad
 import Data.LinearProgram
 import Data.LinearProgram.GLPK
 
@@ -10,7 +10,7 @@ lp :: LP String Int
 lp = execLPM $ do	setDirection Max
 			setObjective objFun
 			leqTo (varSum ["x1", "x2", "x3"]) 100
-			leqTo (10 *^ var "x1" ^+^ 4 *& "x2" ^+^ 5 *^ var "x3") 600
+			leqTo ( (10::Int) *^ var "x1" ^+^ 4 *& "x2" ^+^ (5::Int) *^ var "x3") 600
 			leqTo (linCombination [(2, "x1"), (2, "x2"), (6, "x3")]) 300
 			varGeq "x1" 0
 			varBds "x2" 0 50
